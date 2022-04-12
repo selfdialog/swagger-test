@@ -191,7 +191,7 @@ public class HelloWorldController {
 
 
 
-2. **实例一**  @Api I mpl i ci t Par ams **和** @Api I mpl i ci t Par am **参数描述**
+2. **实例一**  @ApiImplicitParams **和** @ApiImplicitParam **参数描述**
 
    post方式，根据name和age两个参数查询数据，返回信息；
 
@@ -202,7 +202,6 @@ public class HelloWorldController {
 @ApiImplicitParams({
 		@ApiImplicitParam(name = "name",value = "姓名",required = true,paramType = "query"),
 		@ApiImplicitParam(name = "age",value = "年龄",required = true,paramType = "query",dataType = "Integer")
-
 })
 @ApiOperation("测试查询")
 public String search(String name,Integer age){
@@ -212,9 +211,7 @@ public String search(String name,Integer age){
 
 swagger控制台显示：
 
-![image-20220412080755330](C:\Users\14832\AppData\Roaming\Typora\typora-user-images\image-20220412080755330.png)
-
-3. **实例二**  @Api Model **,** @Api Model Pr oper t y **实体参数描述
+3. **实例二**  @ApiModel **,** @ApiModelProperty **实体参数描述
 
    ​	我们搞一个用户信息添加,使用 @ApiModel ,@ApiModelProperty 注解来描述输入参数；
 
@@ -222,48 +219,36 @@ swagger控制台显示：
 
 ```java
 package com.demo.swaggertest.entity;
-
 import io.swagger.annotations.ApiModel;
-
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("用户信息实体")
 public class User {
-
     @ApiModelProperty("编号")
     private Integer id;
-
     @ApiModelProperty("姓名")
     private String name;
-
     @ApiModelProperty("年龄")
     private Integer age;
-
     public User() {
     }
-
     public User(Integer id, String name, Integer age) {
         this.id = id;
         this.name = name;
         this.age = age;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Integer getAge() {
         return age;
     }
-
     public void setAge(Integer age) {
         this.age = age;
     }
-
     public Integer getId() {
         return id;
     }
@@ -288,63 +273,47 @@ public class User {
 
 ```java
 @PostMapping("/add")
-
 @ApiOperation("测试添加")
-
 public String add(User user){
-
-`    `return user.getName()+":"+user.getAge();
-
+    return user.getName()+":"+user.getAge();
 } 
 ```
 
 swagger控制台显示：
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.042.jpeg)
+![image-20220412173253391](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412173253391.png)
 
-4. **实例三**  @Api Res pons es **，** @Api Res pons e![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.043.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.044.png)
+4. **实例三**  @ApiResponses **，** @ApiResponse
 
-我们搞一个根据id获取用户信息案例，通过 @PathVariable 获取id，返回User对象，以及通过![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.045.png)
+我们搞一个根据id获取用户信息案例，通过 @PathVariable 获取id，返回User对象，以及通过@ApiResponses ，@ApiResponse ，描述响应码对应的描述信息
 
-@ApiResponses ，@ApiResponse ，描述响应码对应的描述信息![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.046.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.047.png)
+![image-20220412173510964](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412173510964.png)
 
-@GetMapping("/user/{id}")![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.048.png)
-
-@ApiOperation("根据ID获取用户信息")
-
-@ApiImplicitParams({
-
-`        `@ApiImplicitParam(name = "id",value = "用户编号",required = true,paramType 
-
-- "path")
-
-})
-
-@ApiResponses({
-
-`        `@ApiResponse(code=408,message="指定业务得报错信息，返回客户端"),
-
-`        `@ApiResponse(code=400,message="请求参数没填好"),
-
-`        `@ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
-
-})
-
-public User load(@PathVariable("id") Integer id){
-
-`    `return new User(id,"jack",32);
-
-}
+```java
+	@GetMapping("/user/{id}")
+    @ApiOperation("根据ID获取用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户编号", required = true, paramType = "path")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 408, message = "指定业务得报错信息，返回客户端"),
+            @ApiResponse(code = 400, message = "请求参数没填好"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")
+    })
+    public User load(@PathVariable("id") Integer id) {
+        return new User(id, "jack", 32);
+    }
+```
 
 swagger控制台显示：
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.049.jpeg)
+![image-20220412175256422](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412175256422.png)
 
 **Schemas**也对应有视图用户实体描述信息显示：
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.050.jpeg)
+![image-20220412175322467](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412175322467.png)
 
-**4 Swagger3 接口测试![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.051.png)**
+**4 Swagger3 接口测试**
 
 swagger-ui图形客户端提供了接口测试功能；
 
