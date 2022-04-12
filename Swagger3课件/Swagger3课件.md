@@ -109,11 +109,11 @@ public class HelloWorldController {
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.016.jpeg)
 
-这里我们能看到枚举了所有可能的请求类型，因为我们用了 @RequestMapping ，以及请求地 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.017.png)址/helloWorld ，我们再点开任意一个请求，![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.018.png)
+这里我们能看到枚举了所有可能的请求类型，因为我们用了 @RequestMapping ，以及请求地址/helloWorld ，我们再点开任意一个请求，
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.019.jpeg)
 
-我们可以看到，接口没有参数，返回值是 String 类型；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.020.png)
+我们可以看到，接口没有参数，返回值是 String 类型；
 
 这里描述了完整的接口定义信息；前端开发人员一目了然，假如接口定义变化，前端开发人员刷新下 swagger-ui就能及时看到，比起以往的人工编写接口文档方便很多；
 
@@ -149,177 +149,144 @@ public class HelloWorldController {
 
 # **3.Swagger3 常用配置注解讲解**
 
-1. **Swagger3常用配置如下：** swagger提供了一些配置用来描述接口，下面是一些常用的注解，必须掌握；
+**Swagger3常用配置如下：** 
 
-@Api：用在请求的类上，表示对类的说明![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.026.png)
+1.swagger提供了一些配置用来描述接口，下面是一些常用的注解，必须掌握；
 
-`   `tags="说明该类的作用，可以在UI界面上看到的注解"
+```xml
+@Api：用在请求的类上，表示对类的说明
+	tags="说明该类的作用，可以在UI界面上看到的注解"
+	value="该参数没什么意义，在UI界面上也看到，所以不需要配置"
 
-`   `value="该参数没什么意义，在UI界面上也看到，所以不需要配置"
-
-@ApiOperation：用在请求的方法上，说明方法的用途、作用    value="说明方法的用途、作用"
-
-`   `notes="方法的备注说明"
+@ApiOperation：用在请求的方法上，说明方法的用途、作用
+	value="说明方法的用途、作用"
+	notes="方法的备注说明"
 
 @ApiImplicitParams：用在请求的方法上，表示一组参数说明
+	@ApiImplicitParam：用在@ApiImplicitParams注解中，指定一个请求参数的各个方面
+		name：参数名
+		value：参数的汉字说明、解释
+		required：参数是否必须传
+		paramType：参数放在哪个地方
+            header --> 请求参数的获取：@RequestHeader
+            query --> 请求参数的获取：@RequestParam
+            path（用于restful接口）--> 请求参数的获取：@PathVariable
+            div（不常用）
+            form（不常用）  
 
-`   `@ApiImplicitParam：用在@ApiImplicitParams注解中，指定一个请求参数的各个方面      name：参数名
-
-`     `value：参数的汉字说明、解释
-
-`     `required：参数是否必须传
-
-`     `paramType：参数放在哪个地方
-
-- header --> 请求参数的获取：@RequestHeader
-- query --> 请求参数的获取：@RequestParam
-- path（用于restful接口）--> 请求参数的获取：@PathVariable
-- div（不常用）
-- form（不常用）  
-
-`     `dataType：参数类型，默认String，其它值dataType="Integer"    
-
-`     `defaultValue：参数的默认值
+		dataType：参数类型，默认String，其它值dataType="Integer"    
+		defaultValue：参数的默认值
 
 @ApiResponses：用在请求的方法上，表示一组响应
-
-`   `@ApiResponse：用在@ApiResponses中，一般用于表达一个错误的响应信息      code：数字，例如400
-
-`     `message：信息，例如"请求参数没填好"
-
-`     `response：抛出异常的类
+	@ApiResponse：用在@ApiResponses中，一般用于表达一个错误的响应信息
+		code：数字，例如400
+		message：信息，例如"请求参数没填好"
+		response：抛出异常的类
 
 @ApiModel：用于响应类上，表示一个返回响应数据的信息
+			（这种一般用在post创建的时候，使用@RequestBody这样的场景，
+			请求参数无法使用@ApiImplicitParam注解进行描述的时候）
+	@ApiModelProperty：用在属性上，描述响应类的属性
+```
 
-`       `（这种一般用在post创建的时候，使用@RequestBody这样的场景，        请求参数无法使用@ApiImplicitParam注解进行描述的时候）
 
-@ApiModelProperty：用在属性上，描述响应类的属性![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.027.png)
 
-2. **实例一**  @Api I mpl i ci t Par ams **和** @Api I mpl i ci t Par am **参数描述 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.028.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.029.png)**post方式，根据name和age两个参数查询数据，返回信息；
+2. **实例一**  @Api I mpl i ci t Par ams **和** @Api I mpl i ci t Par am **参数描述**
 
-我们用 @ApiImplicitParams 和@ApiImplicitParam ，描述请求参数![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.030.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.031.png)
+   post方式，根据name和age两个参数查询数据，返回信息；
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.032.png)
+​		我们用 @ApiImplicitParams 和@ApiImplicitParam ，描述请求参数
 
-* 查询
-* @param name
-* @param age
-* @return
-
-` `\*/
-
+```java
 @PostMapping("/search")
-
 @ApiImplicitParams({
-
-`        `@ApiImplicitParam(name = "name",value = "姓名",required = true,paramType 
-
-- "query"),
-
-`        `@ApiImplicitParam(name = "age",value = "年龄",required = true,paramType = "query",dataType = "Integer")
+		@ApiImplicitParam(name = "name",value = "姓名",required = true,paramType = "query"),
+		@ApiImplicitParam(name = "age",value = "年龄",required = true,paramType = "query",dataType = "Integer")
 
 })
-
 @ApiOperation("测试查询")
-
 public String search(String name,Integer age){
-
-`    `return name+":"+age;
-
+    return name+":"+age;
 }
+```
 
 swagger控制台显示：
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.033.jpeg)
+![image-20220412080755330](C:\Users\14832\AppData\Roaming\Typora\typora-user-images\image-20220412080755330.png)
 
-3. **实例二**  @Api Model **,** @Api Model Pr oper t y **实体参数描述 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.034.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.035.png)**我们搞一个用户信息添加,使用 @ApiModel ,@ApiModelProperty 注解来描述输入参数； 先搞一个用户信息实体User.java![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.036.png)
+3. **实例二**  @Api Model **,** @Api Model Pr oper t y **实体参数描述
 
-package com.java1234.entity;![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.037.png)
+   ​	我们搞一个用户信息添加,使用 @ApiModel ,@ApiModelProperty 注解来描述输入参数；
+
+    先搞一个用户信息实体User.java
+
+```java
+package com.demo.swaggertest.entity;
 
 import io.swagger.annotations.ApiModel;
 
 import io.swagger.annotations.ApiModelProperty;
 
-/\*\*
+@ApiModel("用户信息实体")
+public class User {
 
-* 用户实体
-* @author java1234\_小锋
-* @site www.java1234.com
-* @company 南通小锋网络科技有限公司![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.038.png)
-* @create 2021-09-26 9:10
+    @ApiModelProperty("编号")
+    private Integer id;
 
-` `\*/
+    @ApiModelProperty("姓名")
+    private String name;
 
-@ApiModel("用户信息实体") public class User {
+    @ApiModelProperty("年龄")
+    private Integer age;
 
-`   `@ApiModelProperty("编号")    private Integer id;
+    public User() {
+    }
 
-`   `@ApiModelProperty("姓名")    private String name;
+    public User(Integer id, String name, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
 
-`   `@ApiModelProperty("年龄")    private Integer age;
+    public String getName() {
+        return name;
+    }
 
-`   `public User() {    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-`   `public User(Integer id,String name, Integer age) {      this.id=id;
+    public Integer getAge() {
+        return age;
+    }
 
-`     `this.name = name;
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-`     `this.age = age;
+    public Integer getId() {
+        return id;
+    }
 
-`   `}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-`   `public String getName() {      return name;
-
-`   `}
-
-`   `public void setName(String name) {      this.name = name;
-
-`   `}
-
-`   `public Integer getAge() {      return age;
-
-`   `}
-
-`   `public void setAge(Integer age) {      this.age = age;
-
-`   `}
-
-`   `public Integer getId() {      return id;
-
-`   `}
-
-`   `public void setId(Integer id) {      this.id = id;
-
-`   `}
-
-`   `@Override
-
-`   `public String toString() {
-
-`     `return "User{" +
-
-`         `"id=" + id +
-
-`         `", name='" + name + '\'' +          ", age=" + age +
-
-`         `'}';
-
-`   `}
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' + ", age=" + age +
+                '}';
+    }
 }
+```
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.039.png)
 
-参数上，直接用 User user![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.040.png)
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.041.png)
+参数上，直接用 User user
 
-* 添加测试
-* @param user
-* @return
-
-` `\*/
-
+```java
 @PostMapping("/add")
 
 @ApiOperation("测试添加")
@@ -328,7 +295,10 @@ public String add(User user){
 
 `    `return user.getName()+":"+user.getAge();
 
-} swagger控制台显示：
+} 
+```
+
+swagger控制台显示：
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.042.jpeg)
 
