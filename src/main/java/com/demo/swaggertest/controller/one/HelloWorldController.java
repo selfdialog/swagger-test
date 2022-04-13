@@ -1,4 +1,4 @@
-package com.demo.swaggertest.controller;
+package com.demo.swaggertest.controller.one;
 
 import com.demo.swaggertest.entity.User;
 import io.swagger.annotations.Api;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "helloWorld测试类")
+@Api(tags = "helloWorld测试类1")
 @RestController
 public class HelloWorldController {
     @ApiOperation("测试方法")

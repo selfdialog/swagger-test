@@ -26,11 +26,24 @@ Swagger（丝袜哥）是一个简单但功能强大的API表达工具。它具�
 
 # **2.Swagger3 HelloWorld实现**
 
-## **第一步: 添加Swagger依赖**
+## **第一步: 添加Swagger依赖**（gradle版本）
 
 ```xml
 // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
 implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+```
+
+
+
+**添加Swagger依赖（maven版本）**
+
+```xml
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency>
 ```
 
 这里用的是 springfox，**Swagger 可以看作是一个遵循了 OpenAPI 规范的一项技术，而 springfox 则 是这项技术的具体实现。**
@@ -41,7 +54,7 @@ implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '
 
 **SpringBoot2.6.X高版本启动问题**
 
-SpringBoot2.6.1版本集成Swagger空指针原因是:Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X使用的是PathPatternMatcher。 
+SpringBoot2.6.X版本集成Swagger空指针原因是:Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X使用的是PathPatternMatcher。 
 
 ```yaml
 // 解决： 修改application.yml spring: mvc: pathmatch: matching-strategy: ANT_PATH_MATCHER
@@ -211,6 +224,8 @@ public String search(String name,Integer age){
 
 swagger控制台显示：
 
+![image-20220412233237808](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233237808.png)
+
 3. **实例二**  @ApiModel **,** @ApiModelProperty **实体参数描述
 
    ​	我们搞一个用户信息添加,使用 @ApiModel ,@ApiModelProperty 注解来描述输入参数；
@@ -281,13 +296,11 @@ public String add(User user){
 
 swagger控制台显示：
 
-![image-20220412173253391](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412173253391.png)
+![image-20220412233308911](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233308911.png)
 
 4. **实例三**  @ApiResponses **，** @ApiResponse
 
 我们搞一个根据id获取用户信息案例，通过 @PathVariable 获取id，返回User对象，以及通过@ApiResponses ，@ApiResponse ，描述响应码对应的描述信息
-
-![image-20220412173510964](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412173510964.png)
 
 ```java
 	@GetMapping("/user/{id}")
@@ -307,122 +320,92 @@ swagger控制台显示：
 
 swagger控制台显示：
 
-![image-20220412175256422](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412175256422.png)
+![image-20220412233350647](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233350647.png)
 
 **Schemas**也对应有视图用户实体描述信息显示：
 
-![image-20220412175322467](C:\Users\TF\AppData\Roaming\Typora\typora-user-images\image-20220412175322467.png)
+![image-20220412233401727](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233401727.png)
 
-**4 Swagger3 接口测试**
+# **4.Swagger3 接口测试**
 
 swagger-ui图形客户端提供了接口测试功能；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.052.jpeg)
+![image-20220412233414401](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233414401.png)
 
 默认情况下，这些参数都不能填写，禁用的；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.053.jpeg)
+![image-20220412233429472](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233429472.png)
 
 我们点击“Try it out”按钮；即可开启接口测试功能；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.054.jpeg)
+![image-20220412233504287](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233504287.png)
 
 输入请求参数后，点击“Execute‘按钮，即可执行，下方是后端返回信息； 类似的，我们可以测试添加功能；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.055.jpeg)
+![image-20220412233538417](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233538417.png)
 
-说明：很多时候，前后端分离，传的是json，键值对，用swagger-ui提供的简陋接口测试工具很难用， 所以接口测试我们还是用专业的 postman![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.056.png)
+说明：很多时候，前后端分离，传的是json，键值对，用swagger-ui提供的简陋接口测试工具很难用， 所以接口测试我们还是用专业的 postman
 
-**5 Swagger3 API信息配置![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.001.png)**
+# **5.Swagger3 API信息配置**
 
 默认情况，显示的API信息如下：
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.057.jpeg)
+![image-20220412233558019](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233558019.png)
 
-通过源码，我们可以看到：这个信息是通过 springfox.documentation.service.ApiInfo.java 类来 构造的；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.058.png)
+通过源码，我们可以看到：这个信息是通过 springfox.documentation.service.ApiInfo.java 类来构造的；
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.059.jpeg)
 
-最终通过 springfox.documentation.spring.web.plugins.Docket.java 类的构造方法传入![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.060.png)
-
-ApiInfo 类来最终构造；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.061.png)
+最终通过 springfox.documentation.spring.web.plugins.Docket.java 类的构造方法传入ApiInfo 类来最终构造；
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.062.jpeg)
 
-我们要修改API信息默认配置的话，可以通过新建一个 com.java1234.config.Swagger3Config.java ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.063.png)配置类，重写 ApiInfo 实现，以及重写 Docket 实现并且设置apiInfo；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.064.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.065.png)
+我们要修改API信息默认配置的话，可以通过新建一个 com.swaggerdemo.config.Swagger3Config.java 配置类，重写 ApiInfo 实现，以及重写 Docket 实现并且设置apiInfo；
 
-package com.java1234.config;![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.066.png)
-
+```java
 import org.springframework.context.annotation.Bean;
-
-import org.springframework.context.annotation.Configuration; import springfox.documentation.service.ApiInfo;
-
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-
-import springfox.documentation.spi.DocumentationType; import springfox.documentation.spring.web.plugins.Docket;
-
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 import java.util.ArrayList;
 
-/\*\*
-
-* @author java1234\_小锋
-* @site www.java1234.com
-* @company 南通小锋网络科技有限公司
-* @create 2021-09-21 10:42![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.067.png)
-
-` `\*/
-
 @Configuration
-
 public class Swagger3Config {
+    /**
+     * 配置swagger的Docket bean
+     * @return
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30).apiInfo(createApiInfo());  // 指定swagger3.0版本
+    }
 
-`   `/\*\*
+    /**
+     * 配置swagger的ApiInfo bean
+     * @return
+     */
+    @Bean
+    public ApiInfo createApiInfo() {
+        return new ApiInfo("Swagger"
+                , "Api Documentation"
+                , "3.0"
+                , "xxxxxxxxxx"
+                , new Contact("张三", "xxxxxxx", "xxxxxxxx@126.com")
+                , "Apache 2.0"
+                , "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
+    }
+}
+```
 
-* 配置swagger的Docket bean
-* @return
+ 重启项目，我们发现，APIInfo信息变了；
 
-`   `\*/
+![image-20220412233713311](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233713311.png)
 
-`   `@Bean
+这个API信息主要作用是让前端开发人员看的，谁开发的接口，或者哪个小组负责，有问题方便联系沟通；
 
-`   `public Docket createRestApi() {
-
-`     `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本          .apiInfo(createApiInfo());
-
-`   `}
-
-`   `/\*\*
-
-* 配置swagger的ApiInfo bean
-* @return
-
-`   `\*/
-
-`   `@Bean
-
-`   `public ApiInfo createApiInfo(){
-
-`     `return new ApiInfo("Java1234 Swagger"
-
-`        `,"Java1234 Api Documentation"
-
-`         `,"3.0"
-
-`         `,"http://www.java1234.vip"
-
-`         `,new Contact("小锋", "http://www.java1234.vip", "caofeng2012@126.com")
-
-`         `,"Apache 2.0"
-
-`         `,"http://www.apache.org/licenses/LICENSE-2.0"          ,new ArrayList());
-
-`   `}
-
-} 重启项目，我们发现，APIInfo信息变了；
-
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.068.jpeg)这个API信息主要作用是让前端开发人员看的，谁开发的接口，或者哪个小组负责，有问题方便联系沟 通；
-
-**6 Swagger3 Docket 开关&过滤&分组 配置详解![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.069.png)**
+# **6.Swagger3 Docket 开关&过滤&分组 配置详解**
 
 我们可以通过设置Docket，可以配置很多功能，比如是否开启swagger，过滤，分组等；
 
@@ -432,309 +415,274 @@ public class Swagger3Config {
 
 我们通过设置Docket对象的enable即可；
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.070.png)
-
-* 配置swagger的Docket bean
-* @return
-
-` `\*/
-
-@Bean
-
-public Docket createRestApi() {
-
-`    `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本             .enable(false)  // 开关
-
-`            `.apiInfo(createApiInfo());
-
-}
+```java
+	/**
+     * 配置swagger的Docket bean
+     *
+     * @return
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本
+                .apiInfo(createApiInfo())
+                .enable(false);
+    }
+```
 
 ![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.071.jpeg)
 
 设置后，重启项目，发现已经看不到API信息了；
 
-2. **设置过滤** 有些情况，我们需要指定固定包路径下的类生成API，或者根据前端用户路径请求过滤； 使用过滤，必须先调用 select 方法；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.072.png)
+2. **设置过滤** 有些情况，我们需要指定固定包路径下的类生成API，或者根据前端用户路径请求过滤； 使用过滤，必须先调用 select 方法；
 
-通过apis方法， basePackage 可以根据包路径来生成特定类的API，![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.073.png)
+通过apis方法， 
 
-any 方法是默认所有都有效， none 方法都无效；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.074.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.075.png)
+basePackage 可以根据包路径来生成特定类的API,
 
-withClassAnnotation 根据类注解， withMethodAnnotation 是根据方法注解； 一般我们用的是![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.076.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.077.png) basePackage 方法；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.078.png)
+any 方法是默认所有都有效， none 方法都无效；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.079.jpeg)
+withClassAnnotation 根据类注解， 
 
-具体实例：
+withMethodAnnotation 是根据方法注解； 一般我们用的是basePackage 方法；
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.080.png)
-
-* 配置swagger的Docket bean
-* @return
-
-` `\*/
-
-@Bean
-
-public Docket createRestApi() {
-
-`    `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本             .enable(true)  // 开关
-
-`            `.select()
-
-.apis(RequestHandlerSelectors.basePackage("com.java1234.controller"))  // 指定扫描 的包  常用方式
-
-`            `.build()
-
-`            `.apiInfo(createApiInfo());
-
-}
-
-最后要加 build() 方法；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.081.png)
-
-类似的还有一个根据请求路径的 paths 方法；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.082.png)
-
-一般用 ant 匹配路径；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.083.png)
-
-any 是匹配任意路径， none 是都不匹配， regex 是正则匹配；![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.084.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.085.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.086.png)
-
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.087.jpeg)
+![image-20220412233750213](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233750213.png)
 
 具体实例：
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.088.png)
+```java
+/**
+     * 配置swagger的Docket bean
+     *
+     * @return
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.demo.swaggertest.controller"))
+                .build()
+                .apiInfo(createApiInfo())
+                .enable(true);
+    }
+```
 
-* 配置swagger的Docket bean
-* @return
+最后要加 build() 方法；
 
-` `\*/
+类似的还有一个根据请求路径的 paths 方法；
 
-@Bean
+一般用 ant 匹配路径；
 
-public Docket createRestApi() {
+any 是匹配任意路径， none 是都不匹配， regex 是正则匹配；
 
-`    `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本
+![image-20220412233804205](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233804205.png)
 
-`            `.enable(true)  // 开关
+具体实例：
 
-`            `.select()
-
-`            `.paths(PathSelectors.ant("/java1234/\*\*"))  // 匹配 /java1234/\*\*请求路径             .build()
-
-`            `.apiInfo(createApiInfo());
-
-}
+```java
+	/**
+     * 配置swagger的Docket bean
+     *
+     * @return
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本
+                .select()
+                .paths(PathSelectors.ant("/**")) //匹配 /**请求路径
+                .build()
+                .apiInfo(createApiInfo())
+                .enable(true); //开关
+    }
+```
 
 swagger-ui视图只显示过滤后的API接口信息；
+
+
 
 3. **设置分组**
 
 在实际项目开发中，把复杂项目划分多模块给多个小组或者多个人负责开发，所以每个小组或者个人要 实现自己的分组，方便查找到API接口开发负责人，沟通和处理问题；
 
-我们通过 groupName 方法可以设置组名； 实例：![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.089.png)
+我们通过 groupName 方法可以设置组名； 实例：
 
-/\*\*![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.090.png)
-
-* 配置swagger的Docket bean
-* @return
-
-` `\*/
-
+```java
 @Bean
-
 public Docket createRestApi() {
+    return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本             
+        .groupName("开发组001")
+        .enable(true)  // 开关
+        .select()
+        .build()
+        .apiInfo(createApiInfo());
+} 
+```
 
-`    `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本             .groupName("开发组001")
 
-`            `.enable(true)  // 开关
 
-`            `.select()
+刷新界面：
 
-`            `.build()
-
-`            `.apiInfo(createApiInfo());
-
-} 刷新界面：
-
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.091.jpeg)
+![image-20220412233831294](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233831294.png)
 
 发现组名变了；
 
-现在话，我们结合前面学过的过滤，通过apis的basePackage方法，搞两个组，分别扫描不同的包路 径；
+现在话，我们结合前面学过的过滤，通过apis的basePackage方法，搞两个组，分别扫描不同的包路径；
 
 模拟分组开发，controller包下建两个子包，分别是one和two包，用来模拟两个业务模块；
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.092.png)
+![image-20220412232900066](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412232900066.png)
 
-简单搞个 HelloWorldController2![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.093.png)
+简单搞个 HelloWorldController2
 
-package com.java1234.controller.two;![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.094.png)
 
-import io.swagger.annotations.\*;
 
-import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.RestController;
+```java
+import io.swagger.annotations.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/\*\*
-
-* @author java1234\_小锋
-* @site www.java1234.com
-* @company 南通小锋网络科技有限公司
-* @create 2021-09-22 15:46![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.095.png)
-
-` `\*/
-
-@Api(tags="helloWorld2类测试") @RestController
-
+@Api(tags = "helloWorld测试类2")
+@RestController
 public class HelloWorldController2 {
-
-`   `/\*\*
-
-* helloWorld测试
-* @return
-
-`   `\*/
-
-`   `@ApiOperation("测试方法2")
-
-`   `@GetMapping("/helloWorld2")    public String helloWorld(){      return "helloWorld2";    }
-
+    @ApiOperation("测试方法2")
+    @GetMapping("/helloWorld2")
+    public String helloWorld() {
+        return "hello world2";
+    }
 }
+```
 
-我们搞两个 Docket 和两个 ApiInfo![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.096.png)![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.097.png)
+我们搞两个 Docket 和两个 ApiInfo
 
-package com.java1234.config;![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.098.png)
 
+
+```java
 import org.springframework.context.annotation.Bean;
 
-import org.springframework.context.annotation.Configuration; import springfox.documentation.builders.RequestHandlerSelectors; import springfox.documentation.service.ApiInfo;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 
 import springfox.documentation.service.Contact;
 
 import springfox.documentation.spi.DocumentationType;
-
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
 
-/\*\*
-
-* @author java1234\_小锋
-* @site www.java1234.com
-* @company 南通小锋网络科技有限公司
-* @create 2021-09-21 10:42
-
-` `\*/
-
 @Configuration
-
 public class Swagger3Config {
+    /**
+     * 配置swagger的Docket bean
+     *
+     * @return
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本
+                .groupName("开发者001")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.demo.swaggertest.controller.one"))   //扫描指定的包 常用方式
+                .build()
+                .apiInfo(createApiInfo())
+                .enable(true);
+    }
 
-`   `/\*\*
+    @Bean
+    public Docket createRestApi2() {
+        return new Docket(DocumentationType.OAS_30)  // 指定swagger3.0版本
+                .groupName("开发者002")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.demo.swaggertest.controller.two"))   //扫描指定的包 常用方式
+                .build()
+                .apiInfo(createApiInfo2())
+                .enable(true);
+    }
 
-* 配置swagger的Docket bean
-* @return
+    /**
+     * 配置swagger的ApiInfo bean
+     *
+     * @return
+     */
+    @Bean
+    public ApiInfo createApiInfo() {
+        return new ApiInfo("Swagger"
+                , "Api Documentation"
+                , "3.0"
+                , "xxxxxxxxxx"
+                , new Contact("张三", "xxxxxxx", "xxxxxxxx@126.com")
+                , "Apache 2.0"
+                , "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
+    }
 
-`   `\*/
+    @Bean
+    public ApiInfo createApiInfo2() {
+        return new ApiInfo("Swagger"
+                , "Api Documentation"
+                , "3.0"
+                , "xxxxxxxxxx"
+                , new Contact("李四", "xxxxxxx", "xxxxxxxx@126.com")
+                , "Apache 2.0"
+                , "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
+    }
+}
+```
 
-`   `@Bean
-
-`   `public Docket createRestApi() {
-
-`     `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本          .groupName("开发组001")
-
-`         `.select()
-
-.apis(RequestHandlerSelectors.basePackage("com.java1234.controller.one"))  // 指 定扫描的包  常用方式
-
-`         `.build()
-
-`         `.apiInfo(createApiInfo());
-
-}![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.099.png)
-
-`   `/\*\*
-
-* 配置swagger的Docket bean
-* @return
-
-`   `\*/
-
-`   `@Bean
-
-`   `public Docket createRestApi2() {
-
-`     `return new Docket(DocumentationType.OAS\_30)  // 指定swagger3.0版本          .groupName("开发组002")
-
-`         `.select()
-
-.apis(RequestHandlerSelectors.basePackage("com.java1234.controller.two"))  // 指 定扫描的包  常用方式
-
-`         `.build()
-
-`         `.apiInfo(createApiInfo2());
-
-`   `}
-
-`   `/\*\*
-
-* 配置swagger的ApiInfo bean
-* @return
-
-`   `\*/
-
-`   `@Bean
-
-`   `public ApiInfo createApiInfo(){
-
-`     `return new ApiInfo("Java1234 Swagger"
-
-`        `,"Java1234 Api Documentation"
-
-`         `,"3.0"
-
-`         `,"http://www.java1234.vip"
-
-`         `,new Contact("小锋", "http://www.java1234.vip", "caofeng2012@126.com")
-
-`         `,"Apache 2.0"
-
-`         `,"http://www.apache.org/licenses/LICENSE-2.0"          ,new ArrayList());
-
-`   `}
-
-`   `/\*\*
-
-* 配置swagger的ApiInfo bean
-* @return
-
-`   `\*/
-
-`   `@Bean
-
-`   `public ApiInfo createApiInfo2(){
-
-`     `return new ApiInfo("Java1234 Swagger"
-
-`         `,"Java1234 Api Documentation"
-
-`         `,"3.0"
-
-`         `,"http://www.java1234.vip"
-
-`         `,new Contact("小丽", "http://www.java1234.vip", "caofeng2012@126.com")
-
-`         `,"Apache 2.0"
-
-`         `,"http://www.apache.org/licenses/LICENSE-2.0"          ,new ArrayList());
-
-`   `}
-
-} 启动项目运行；
+启动项目运行；
 
 开发组001
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.100.jpeg)
+![image-20220412233844843](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233844843.png)
 
 开发组002
 
-![](Aspose.Words.48055da0-2761-4160-b51e-baa9989021d9.101.jpeg)
+![image-20220412233903242](C:/Users/14832/AppData/Roaming/Typora/typora-user-images/image-20220412233903242.png)
 
 测试OK;
+
+
+
+# **7.Swagger3 导出离线文档**
+
+## 添加knife4j依赖（maven版本）
+
+在pom.xml中增加knife4j的依赖：
+
+```xml
+<!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+<dependency>
+    <groupId>com.github.xiaoymin</groupId>
+    <artifactId>knife4j-spring-boot-starter</artifactId>
+    <version>3.0.3</version>
+</dependency>
+```
+
+**gradle版本**
+
+```xml
+// https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter
+implementation group: 'com.github.xiaoymin', name: 'knife4j-spring-boot-starter', version: '3.0.3'
+```
+
+
+
+## 启动knife4j
+
+在上面配置Swagger的Swagger3Config中添加@EnableKnife4j注解，该注解可以开启knife4j的增强功能。
+
+```java
+@EnableKnife4j
+@Configuration
+@EnableOpenApi
+public class Swagger3Config {
+    // ...
+}
+```
+
+此时，如果依旧访问http://localhost:8080/swagger-ui/index.html会发现显示并没有变化。这里我们需要访问http://localhost:8088/doc.html。
+
+整个项目源码地址：https://github.com/secbr/springboot-all/tree/master/springboot-swagger3。
+
+#### 展示效果
+
+此时启动项目，访问doc.html之后，你会发现现在文档风格变得非常酷炫。展示几个效果图来看看：
